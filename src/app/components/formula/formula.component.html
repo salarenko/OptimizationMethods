@@ -1,0 +1,73 @@
+<div class="card">
+    <div class="card-header">Formula</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center">
+                <form [formGroup]="formulaForm" (ngSubmit)="emitFormula()" class="w-100">
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-light" id="basic-addon1">F(x) = </span>
+                        </div>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1"
+                               formControlName="formula">
+                    </div>
+                    <span class="font-weight-bold position-absolute small"
+                          *ngIf="formulaForm.get('formula').touched"
+                          [ngClass]="{'text-success': formulaForm.get('formula').valid, 'text-danger': formulaForm.get('formula').invalid}">
+                            Provided formula is {{formulaForm.get('formula').valid ? 'valid' : 'invalid'}}
+                    </span>
+                    <div class="mt-4">Range</div>
+                    <div class="row" formGroupName="range">
+
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-light" id="basic-addon1">a</span>
+                                </div>
+                                <input type="number" class="form-control" aria-describedby="basic-addon1"
+                                       formControlName="a">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-light" id="basic-addon1">b</span>
+                                </div>
+                                <input type="number" class="form-control" aria-describedby="basic-addon1"
+                                       formControlName="b">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-light" id="basic-addon1">ε</span>
+                                </div>
+                                <input type="number" class="form-control" aria-describedby="basic-addon1"
+                                       formControlName="epsilon">
+                            </div>
+                        </div>
+
+                    </div>
+                    <span class="font-weight-bold text-danger position-absolute small position-absolute"
+                          *ngIf="(formulaForm.get('range').invalid) && formulaForm.get('range.a').touched && formulaForm.get('range.b').touched && formulaForm.get('range.epsilon').touched">
+            Provided range is invalid
+          </span>
+
+                    <button class="btn btn-success mt-4 w-100" type="submit">Compute</button>
+
+                </form>
+            </div>
+            <div class="col border-left">
+                <p>Formula should:</p>
+                <ul>
+                    <li>Be one dimensional</li>
+                    <li>Contain only valid operators: <i>+, -, x^exponent</i></li>
+                    <li>Example valid formula: <i>F(x) = x^3 + -2x^2 + x + -50</i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
