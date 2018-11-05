@@ -6,13 +6,12 @@ export const runGoldenSectionSearch = (fn, a, b, elipson): {
     const stepByStepSolution = [];
     const k = (Math.sqrt(5) - 1) / 2;
 
-    let xR = b - k;
-    let xL = a + k;
+    let xL = b - k * (b - a);
+    let xR = a + k * (b - a);
 
     stepByStepSolution.push({a, b});
-    debugger;
 
-    while (Math.abs(b - a) > elipson) {
+    while ((b - a) > elipson) {
 
         if (fn(xL) < fn(xR)) {
             // wybierz przedział [a, xR]

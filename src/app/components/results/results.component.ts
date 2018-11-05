@@ -18,7 +18,7 @@ export class ResultsComponent implements OnInit {
             this.stepByStep = value.stepByStepSolution;
         }
     }
-    @Input currentStep;
+    @Input() currentStep;
 
     ngOnInit() {
     }

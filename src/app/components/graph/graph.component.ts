@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Chart} from 'chart.js';
+import 'chartjs-plugin-zoom';
 import * as _ from 'lodash';
 import {ICompleteData} from '../../models/complete-data.interface';
 
@@ -17,6 +18,7 @@ export class GraphComponent implements OnInit {
     chart;
     stepNum = 1;
     result;
+    epsilon;
 
     @ViewChild('lineChart') private chartRef;
 
@@ -30,6 +32,7 @@ export class GraphComponent implements OnInit {
             this.stepByStep = value.stepByStepSolution;
             this.initialRange = {a: value.a, b: value.b};
             this.result = value.zeroPoint;
+            this.epsilon = value.epsilon;
             this._setChartData(value.a, value.b);
             this._registerChartPlugin();
             this._buildChart();
@@ -60,8 +63,7 @@ export class GraphComponent implements OnInit {
 
     private _updateDataSet() {
         this.chart.data.datasets.pop();
-        console.log(this.stepByStep[this.stepNum - 1].a,
-            this.stepByStep[this.stepNum - 1].b);
+
         this.pushStepAndReload(
             this.stepByStep[this.stepNum - 1].a,
             this.stepByStep[this.stepNum - 1].b,
@@ -94,12 +96,13 @@ export class GraphComponent implements OnInit {
     }
 
     private pushStepAndReload(a, b, color, background, lineWidth?) {
+
         this.chart.data.datasets.push({
             data: [{
-                x: a,
+                x: Math.round(a * 10) / 10,
                 y: this.formulaFn(a)
             }, {
-                x: b,
+                x: Math.round(b * 10) / 10,
                 y: this.formulaFn(b)
             }],
             label: 'Search range',
@@ -122,22 +125,42 @@ export class GraphComponent implements OnInit {
                     // display: false
                 },
                 scales: {
-                    xAxes: [{
-                        display: true
-                    }],
                     yAxes: [{
-                        display: true
-                    }],
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                // Container for pan options
+                pan: {
+                    // Boolean to enable panning
+                    enabled: true,
+
+                    // Panning directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow panning in the y direction
+                    mode: 'xy'
+                },
+
+                // Container for zoom options
+                zoom: {
+                    // Boolean to enable zooming
+                    enabled: true,
+
+                    // Zooming directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow zooming in the y direction
+                    mode: 'xy',
                 }
-            }
+            },
         });
 
-        this.pushStepAndReload(this.result, this.result, 'rgba(255, 0, 0, 1)', 'rgba(255, 0, 0, .2)', 50);
+        this.pushStepAndReload(this.result, this.result, 'rgba(255, 0, 0, 1)', 'rgba(255, 0, 0, .2)');
         this.pushStepAndReload(this.initialRange.a, this.initialRange.b, 'rgba(99, 1, 132, 1)', 'rgba(99, 1, 132, .2)');
     }
 
     private _setChartData(a, b) {
-        const range = _.range(a + .5 * a, b + .5 * b + 1, 1);
+
+        const range = _.range(a + .5 * a, b + .5 * b + .1, .1).map(val => Math.round(val * 10) / 10);
+
         this.data = {
             labels: range,
             datasets: [{
