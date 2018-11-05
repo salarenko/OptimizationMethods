@@ -1,14 +1,25 @@
 <div class="card">
-  <div class="card-header">Graph</div>
-  <div class="card-body">
-    <!--<div [ngClass]="{'d-none': !formula}">-->
-    <div>
-      <canvas #lineChart>{{ chart }}</canvas>
+    <div class="card-header">Graph</div>
+    <div class="card-body">
+        <div [hidden]="!formulaFn">
+            <canvas #lineChart>{{ chart }}</canvas>
+
+
+            <div class="d-flex justify-content-center border-top mt-4">
+                <div class="d-flex flex-column mt-2">
+                    <h6>Algorithm step</h6>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-primary btn-sm" (click)="decrementStep()">&larr;</button>
+                        <span>{{stepNum}}/{{stepByStep?.length}}</span>
+                        <button class="btn btn-primary btn-sm" (click)="incrementStep()">&rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="!!formulaFn">
+            <div class="d-flex justify-content-center">
+                - No data -
+            </div>
+        </div>
     </div>
-    <!--<div [ngClass]="{'d-none': !!formula}">-->
-      <!--<div class="d-flex justify-content-center">-->
-        <!-- - No data - -->
-      <!--</div>-->
-    <!--</div>-->
-  </div>
 </div>

@@ -1,9 +1,8 @@
-<div class="container mt-4">
-  <app-formula (formula)="formula = $event"></app-formula>
+<div class="container my-4">
+  <app-formula (formula)="loadFormula($event)"></app-formula>
   <div class="mt-4">
-    <app-graph [formula]="formula"></app-graph>
+    <app-graph [completeData]="completeData" (currentStep)="currentStep = $event"></app-graph>
   </div>
   <div class="mt-4">
-    <app-results></app-results>
   </div>
 </div>

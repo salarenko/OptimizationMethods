@@ -38,7 +38,7 @@ export class FormulaComponent implements OnInit {
                 'range': this.fb.group({
                     'a': ['', [Validators.required]],
                     'b': ['', [Validators.required]],
-                    'epsilon': ['', [Validators.required]]
+                    'epsilon': [0.001, [Validators.required]]
                 }, {
                     validator: RangeValidator
                 }),

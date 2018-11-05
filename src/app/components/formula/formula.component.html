@@ -2,7 +2,7 @@
     <div class="card-header">Formula</div>
     <div class="card-body">
         <div class="row">
-            <div class="col d-flex justify-content-center align-items-center">
+            <div class="col-7 d-flex justify-content-center align-items-center">
                 <form [formGroup]="formulaForm" (ngSubmit)="emitFormula()" class="w-100">
 
                     <div class="input-group">
@@ -52,9 +52,9 @@
 
                     </div>
                     <span class="font-weight-bold text-danger position-absolute small position-absolute"
-                          *ngIf="(formulaForm.get('range').invalid) && formulaForm.get('range.a').touched && formulaForm.get('range.b').touched && formulaForm.get('range.epsilon').touched">
-            Provided range is invalid
-          </span>
+                          *ngIf="(formulaForm.get('range').invalid) && formulaForm.get('range.a').touched && formulaForm.get('range.b').touched">
+                        Provided range is invalid
+                    </span>
 
                     <button class="btn btn-success mt-4 w-100" type="submit">Compute</button>
 

@@ -1,3 +1,20 @@
-<p>
-  results works!
-</p>
+<div class="card">
+    <div class="card-header">Results</div>
+    <div class="card-body">
+        <div [hidden]="!stepByStep">
+            <div class="row">
+                <div class="col">
+                    <h6>General</h6>
+                </div>
+                <div class="col border-left">
+                    <h6>Current step</h6>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="!!stepByStep">
+            <div class="d-flex justify-content-center">
+                - No data -
+            </div>
+        </div>
+    </div>
+</div>
