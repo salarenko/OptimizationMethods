@@ -1,17 +1,67 @@
 <div class="card">
     <div class="card-header">Results</div>
     <div class="card-body">
-        <div [hidden]="!stepByStep">
+        <div [hidden]="!completeData">
             <div class="row">
                 <div class="col">
                     <h6>General</h6>
+
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Local minimum</th>
+                            <td>x: {{completeData?.zeroPoint}} <br>
+                                y: {{completeData?.fn(completeData?.zeroPoint)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Range</th>
+                            <td>{{'< ' + completeData?.a + ', ' + completeData?.b + ' >'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Epsilon</th>
+                            <td>{{completeData?.epsilon}}</td>
+                        </tr>
+                        <tr>
+                            <th>Algorithm steps</th>
+                            <td>{{completeData?.stepByStepSolution?.length}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
                 </div>
                 <div class="col border-left">
                     <h6>Current step</h6>
+
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Local minimum</th>
+                            <td>{{(completeData?.stepByStepSolution[currentStep - 1]?.a +
+                                completeData?.stepByStepSolution[currentStep - 1]?.b)/2}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Range</th>
+                            <td>{{'< ' + completeData?.stepByStepSolution[currentStep - 1]?.a + ', ' +
+                                completeData?.stepByStepSolution[currentStep - 1]?.b + ' >'}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Epsilon</th>
+                            <td>{{completeData?.epsilon}}</td>
+                        </tr>
+                        <tr>
+                            <th>Current algorithm step</th>
+                            <td>{{currentStep}} / {{completeData?.stepByStepSolution?.length}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
-        <div [hidden]="!!stepByStep">
+        <div [hidden]="!!completeData">
             <div class="d-flex justify-content-center">
                 - No data -
             </div>

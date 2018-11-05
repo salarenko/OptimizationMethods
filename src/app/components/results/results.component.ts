@@ -11,13 +11,7 @@ export class ResultsComponent implements OnInit {
     constructor() {
     }
 
-    stepByStep;
-
-    @Input('completeData') set initializeComponentDatasets(value: ICompleteData) {
-        if (!!value) {
-            this.stepByStep = value.stepByStepSolution;
-        }
-    }
+    @Input() completeData: ICompleteData;
     @Input() currentStep;
 
     ngOnInit() {
